@@ -1,4 +1,4 @@
-// import { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { FollowerProvider } from './constext/followers.context.js';
 const rootElement = document.getElementById('root');
 if (rootElement) {
   createRoot(rootElement).render(
-    // <StrictMode>
+    <StrictMode>
       <Provider store={store}>
         <UserProvider>
           <FollowerProvider>
@@ -21,7 +21,7 @@ if (rootElement) {
           </FollowerProvider>
         </UserProvider>
       </Provider>
-    // </StrictMode>,
+    </StrictMode>,
   );
 } else {
   throw new Error("Root element with id 'root' not found");
