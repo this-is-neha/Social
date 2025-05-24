@@ -1,0 +1,17 @@
+const authCtrl=require("./auth.controller")
+const authRoute = require("express").Router()
+const uploader= require('../../middleware/uploader')
+
+authRoute.post('/register',uploader.single('image'),authCtrl.register)
+authRoute.get("/activate/:token",authCtrl.activate)
+authRoute.post('/login',authCtrl.login)
+authRoute.get('/me',authCtrl.getLoggedIn)
+authRoute.get('/single/:id',authCtrl.single)
+authRoute.put('/update/:id',uploader.single("image"),authCtrl.update)
+authRoute.get('/all',authCtrl.getAllUsers)
+authRoute.put('/follow/:id/:userId',authCtrl.followUser)
+authRoute.get('/followers/:id',authCtrl.getFollowers)
+authRoute.get('/following/:id',authCtrl.getFollowing)
+authRoute.get('/history/:user1/:user2',authCtrl.history)
+authRoute.get('/chat/:userId',authCtrl.getChatUsers)
+module.exports = authRoute
