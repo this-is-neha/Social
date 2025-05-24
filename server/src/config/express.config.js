@@ -20,6 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Complaint Register backend is live 🚀",
+  });
+});
 app.use('/uploads', express.static('uploads',{
     setHeaders: (res, path) => {
     res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
