@@ -1,6 +1,6 @@
 const express = require('express');
 const mailSvc = require('../../modules/services/mail.services');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const authSvc = require('./auth.service');
 const jwt = require('jsonwebtoken');
 const Message= require('./messgae.model')

@@ -1,5 +1,5 @@
 const { generateRandomString } = require('../utilities/helpers');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const UserModel = require('./auth.model');
 
 class AuthService {
