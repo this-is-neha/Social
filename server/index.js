@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
 });
 
 const PORT = process.env.PORT || 3002;
-server.listen(PORT, '127.0.0.1', (err) => {
+server.listen(PORT,  (err) => {
   if (!err) {
     console.log(`Server is running on port ${PORT}`);
     console.log("Press Ctrl + C to stop the server");
