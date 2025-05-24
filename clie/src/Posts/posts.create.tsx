@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Header from "../common/header";
 import Footer from "../common/footer";
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const PostsCreate = () => {
     const [post, setPost] = useState({
         user: "",
@@ -25,7 +26,7 @@ const PostsCreate = () => {
                     return;
                 }
 
-                const response = await axios.get('http://localhost:3002/auth/me', {
+                const response = await axios.get(`${baseUrl}/auth/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -72,7 +73,7 @@ const PostsCreate = () => {
 
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await axios.post("http://localhost:3002/post/create", formData, {
+            const response = await axios.post(`${baseUrl}/post/create`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "multipart/form-data",

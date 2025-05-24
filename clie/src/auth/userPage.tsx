@@ -5,7 +5,7 @@ import axios from "axios";
 import Header from "../common/header";
 import Footer from "../common/footer";
 import { AiFillHeart } from "react-icons/ai";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const User = () => {
   const [loggedIn, setLoggedIn] = useState<{
     name?: string;
@@ -26,7 +26,7 @@ const User = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:3002/auth/me", {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -50,7 +50,7 @@ const User = () => {
           console.log("User ID not found");
           return;
         }
-        const response = await axios.get(`http://localhost:3002/post/user/${loggedIn._id}`);
+        const response = await axios.get(`${baseUrl}/post/user/${loggedIn._id}`);
         console.log("Post response:", response.data);
         setPost(response.data.result);
       } catch (exception) {
@@ -63,7 +63,7 @@ const User = () => {
   const handleFollowers = async (id: any) => {
     console.log("My Id ", id);
     try {
-      const response = await axios.get(`http://localhost:3002/auth/followers/${id}`);
+      const response = await axios.get(`${baseUrl}/auth/followers/${id}`);
       console.log("Followers response:", response);
       navigate(`/followers/${id}`);
     } catch (exception) {
@@ -73,7 +73,7 @@ const User = () => {
   const handleFollowing = async (id: any) => {
     console.log("My Id ", id);
     try {
-      const response = await axios.get(`http://localhost:3002/auth/following/${id}`);
+      const response = await axios.get(`${baseUrl}/auth/following/${id}`);
       console.log("Following response:", response);
       navigate(`/following/${id}`);
 
@@ -93,7 +93,7 @@ const User = () => {
           <div className="flex-shrink-0 flex justify-center md:justify-start">
             <div className="w-full h-full border-4 border-blue-500 rounded-lg overflow-hidden">
               <img
-                src={`http://localhost:3002/uploads/${loggedIn.image}`}
+                src={`${baseUrl}/uploads/${loggedIn.image}`}
                 alt="Profile"
                 className="w-[1200px] h-full object-cover"
               />
@@ -156,7 +156,7 @@ const User = () => {
                     {post.media.map((file: string, idx: number) => (
                       <img
                         key={idx}
-                        src={`http://localhost:3002/uploads/${file}`}
+                        src={`${baseUrl}/uploads/${file}`}
                         alt={`Post media ${idx + 1}`}
                         className="w-[200px] h-[240px] object-cover rounded-lg shadow"
                       />

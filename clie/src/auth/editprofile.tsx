@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Header from "../common/header";
 import Footer from "../common/footer";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Profile = () => {
   const { id } = useParams();
   const [loggedIn, setLoggedIn] = useState<any>({});
@@ -20,7 +20,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:3002/auth/me", {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -59,7 +59,7 @@ const Profile = () => {
       }
 
       const response = await axios.put(
-        `http://localhost:3002/auth/update/${id}`,
+        `${baseUrl}/auth/update/${id}`,
         data,
         {
           headers: {
@@ -110,7 +110,7 @@ const Profile = () => {
               <label className="block text-lg mb-1">Current Image</label>
               {loggedIn.image && typeof loggedIn.image === "string" && (
                 <img
-                  src={`http://localhost:3002/uploads/${loggedIn.image}`}
+                  src={`${baseUrl}/uploads/${loggedIn.image}`}
                   alt="Profile"
                   className="w-32 h-32 object-cover mb-2 rounded border"
                 />

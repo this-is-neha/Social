@@ -1,12 +1,12 @@
 // src/redux/followerSlice.ts
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 export const fetchFollowers = createAsyncThunk(
   "follower/fetchFollowers",
   async () => {
          const token = localStorage.getItem("accessToken");
-          const responsee = await axios.get("http://localhost:3002/auth/me", {
+          const responsee = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -14,7 +14,7 @@ export const fetchFollowers = createAsyncThunk(
         console.log("Logged-in user responssdsfe:", responsee.data);
         const userId = responsee.data.result._id;
         console.log("Logged-in user ID:", userId);
-    const response = await axios.get(`http://localhost:3002/auth/followers/${userId}`);
+    const response = await axios.get(`${baseUrl}/auth/followers/${userId}`);
     return response.data.result;
   }
 );

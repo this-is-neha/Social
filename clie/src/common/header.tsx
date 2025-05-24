@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Header = () => {
   const [loggedIn, setLoggedIn] = useState<{ name: string } | null>(null);
 
@@ -14,7 +14,7 @@ const Header = () => {
           return;
         }
 
-        const response = await axios.get('http://localhost:3002/auth/me', {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -8,8 +8,9 @@ import { UserContext } from "../constext/following.context";
 import { FollowerContext } from "../constext/followers.context"
 import { FaUserCircle, FaCompass, FaPenFancy } from "react-icons/fa";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 import { motion } from "framer-motion";  
+import { base } from "../../../server/src/modules/auth/auth.model";
 const Landing = () => {
   const [loggedIn, setLoggedIn] = useState<{ name: string } | null>(null);
   const [idd, setId] = useState<string | null>(null);
@@ -38,7 +39,7 @@ const Landing = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:3002/auth/me", {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -78,14 +79,14 @@ const Landing = () => {
     const handleChatUsers = async (iddd: string[]) => {
       try {
 
-        const response = await axios.get(`http://localhost:3002/auth/chat/${iddd}`);
+        const response = await axios.get(`${baseUrl}/auth/chat/${iddd}`);
         console.log("Chat users response:", response);
         console.log("Chat users:", response.data.result);
         setChat(response.data.result || []);
         const chatUsers = response.data.result || [];
         const userDetails = await Promise.all(
           chatUsers.map((userId: string) =>
-            axios.get(`http://localhost:3002/auth/single/${userId}`)
+            axios.get(`${baseUrl}/auth/single/${userId}`)
           )
         );
         console.log("User details:", userDetails);
@@ -112,8 +113,8 @@ const Landing = () => {
       console.log("All user posts", allUserPosts)
       for (const userId of userIds) {
         const [userRes, postsRes] = await Promise.all([
-          axios.get(`http://localhost:3002/auth/single/${userId}`),
-          axios.get(`http://localhost:3002/post/user/${userId}`),
+          axios.get(`${baseUrl}/auth/single/${userId}`),
+          axios.get(`${baseUrl}/post/user/${userId}`),
         ]);
 
         const name = userRes.data.result.name;
@@ -145,7 +146,7 @@ const Landing = () => {
     const Fetch = async () => {
       try {
         console.log("User IDs:", idd);
-        const response = await axios.get(`http://localhost:3002/auth/single/${idd}`);
+        const response = await axios.get(`${baseUrl}auth/single/${idd}`);
         console.log("User resposne:", response);
         setName(response.data.result.name);
         console.log("User name:", response.data.result.name);
@@ -176,7 +177,7 @@ const Landing = () => {
       const token = localStorage.getItem("accessToken");
 
       await axios.post(
-        `http://localhost:3002/post/${postId}/like`,
+        `${baseUrl}/post/${postId}/like`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -265,7 +266,7 @@ const Landing = () => {
                   <div className="flex items-center space-x-4">
                     {user.image && (
                       <img
-                        src={`http://localhost:3002/uploads/${user.image}`}
+                        src={`${baseUrl}/uploads/${user.image}`}
                         alt={`${user.name}'s profile`}
                         className="w-10 h-10 rounded-full object-cover"
                       />
@@ -285,7 +286,7 @@ const Landing = () => {
                           {post.media.map((file, mIdx) => (
                             <img
                               key={mIdx}
-                              src={`http://localhost:3002/uploads/${file}`}
+                              src={`${baseUrl}/uploads/${file}`}
                               alt={`Post media ${mIdx + 1}`}
                               className="w-full max-w-[800px] h-auto object-cover rounded-lg shadow"
                             />
@@ -337,7 +338,7 @@ const Landing = () => {
                     className="flex items-center space-x-3 hover:bg-gray-200 p-2 rounded-lg transition"
                   >
                     <img
-                      src={`http://localhost:3002/uploads/${user.image}`}
+                      src={`${baseUrl}/uploads/${user.image}`}
                       alt={user.name}
                       className="w-16 h-16 rounded-full object-cover"
                     />

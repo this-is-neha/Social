@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect, ReactNode } from "react";
 import axios from "axios";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 interface UserContextType {
   follower: any | null;
   setFollower: React.Dispatch<React.SetStateAction<any | null>>;
@@ -30,7 +30,7 @@ export function FollowerProvider({ children }: UserProviderProps) {
     async function fetchFollower() {
       try {
         const token = localStorage.getItem("accessToken");
-          const responsee = await axios.get("http://localhost:3002/auth/me", {
+          const responsee = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -39,7 +39,7 @@ export function FollowerProvider({ children }: UserProviderProps) {
         const userId = responsee.data.result._id;
         console.log("Logged-in user ID:", userId);
         setLoadings(true);
-        const response = await axios.get(`http://localhost:3002/auth/followers/${userId}`);
+        const response = await axios.get(`${baseUrl}/auth/followers/${userId}`);
         const data = await response.data
         setFollower(data);
       } catch (error) {

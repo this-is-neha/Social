@@ -6,7 +6,7 @@ import Footer from "../common/footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Following = () => {
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
     const { follower, loadings } = useContext(FollowerContext)
 const navigate = useNavigate();
     const { user, loading } = useContext(UserContext);
@@ -38,7 +38,7 @@ const navigate = useNavigate();
                     return;
                 }
 
-                const response = await axios.get("http://localhost:3002/auth/me", {
+                const response = await axios.get(`${baseUrl}/auth/me`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -59,7 +59,7 @@ const navigate = useNavigate();
     }, []);
     const handleToggleFollow = async (followuserId: string) => {
         try {
-            const response = await axios.put(`http://localhost:3002/auth/follow/${followuserId}/${loggedIn}`);
+            const response = await axios.put(`${baseUrl}/auth/follow/${followuserId}/${loggedIn}`);
             console.log("Follow response:", response.data);
 
         } catch (error) {
@@ -92,7 +92,7 @@ const handlechat = async (followuserId: string) => {
                                         <img
                                             src={
                                                 f.image
-                                                    ? `http://localhost:3002/uploads/${f.image}`
+                                                    ? `${baseUrl}/uploads/${f.image}`
                                                     : "/default-avatar.png"
                                             }
                                             alt={f.name}
@@ -137,7 +137,7 @@ const handlechat = async (followuserId: string) => {
                                         <img
                                             src={
                                                 f.image
-                                                    ? `http://localhost:3002/uploads/${f.image}`
+                                                    ? `${baseUrl}/uploads/${f.image}`
                                                     : "/default-avatar.png"
                                             }
                                             alt={f.name}

@@ -5,7 +5,7 @@ import socket from "../Socket";
 import Header from "../common/header";
 import Footer from "../common/footer";
 import axios from "axios";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Chat = ({ userId: recipientUserId }: { userId: string }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState<{ from: string; message: string }[]>([]);
@@ -36,7 +36,7 @@ const Chat = ({ userId: recipientUserId }: { userId: string }) => {
           return;
         }
 
-        const response = await axios.get("http://localhost:3002/auth/me", {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,7 +54,7 @@ const Chat = ({ userId: recipientUserId }: { userId: string }) => {
   useEffect(() => {
     const fetchRecipientInfo = async () => {
       try {
-        const response = await axios.get(`http://localhost:3002/auth/single/${recipientUserId}`);
+        const response = await axios.get(`${baseUrl}/auth/single/${recipientUserId}`);
         setRecipientInfo(response.data.result);
       } catch (error) {
         console.error("Failed to load recipient info", error);
@@ -71,7 +71,7 @@ const Chat = ({ userId: recipientUserId }: { userId: string }) => {
       if (!loggedInUserId || !recipientUserId) return;
       try {
         const response = await axios.get(
-          `http://localhost:3002/auth/history/${loggedInUserId}/${recipientUserId}`
+          `${baseUrl}/auth/history/${loggedInUserId}/${recipientUserId}`
         );
         setChat(response.data.result || []);
       } catch (err) {
@@ -110,7 +110,7 @@ const Chat = ({ userId: recipientUserId }: { userId: string }) => {
             <img
               src={
                 recipientInfo.image
-                  ? `http://localhost:3002/uploads/${recipientInfo.image}`
+                  ? `${baseUrl}/uploads/${recipientInfo.image}`
                   : "/default-avatar.png"
               }
               alt={recipientInfo.name}

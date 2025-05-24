@@ -3,7 +3,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Activate = () => {
   const [token, setToken] = useState({
     activationToken: "",
@@ -19,7 +19,7 @@ const Activate = () => {
     e.preventDefault();
     try {
       const response = await axios.get(
-        `http://localhost:3002/auth/activate/${token.activationToken}`
+        `${baseUrl}/auth/activate/${token.activationToken}`
       );
       console.log("Response is ", response);
       navigate("/login");

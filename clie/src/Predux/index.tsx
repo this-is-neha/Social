@@ -6,7 +6,7 @@ import { RootState, AppDispatch } from "../redux/store";
 import Header from "../common/header";
 import Footer from "../common/footer";
 import axios from "axios";
-
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Followings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { followers } = useSelector((state: RootState) => state.follower);
@@ -24,7 +24,7 @@ const Followings = () => {
         const token = localStorage.getItem("accessToken");
         if (!token) return;
 
-        const response = await axios.get("http://localhost:3002/auth/me", {
+        const response = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -42,7 +42,7 @@ const Followings = () => {
   const handleToggleFollow = async (followuserId: string) => {
     try {
       const response = await axios.put(
-        `http://localhost:3002/auth/follow/${followuserId}/${loggedIn}`
+        `${baseUrl}/auth/follow/${followuserId}/${loggedIn}`
       );
       console.log("Follow response:", response.data);
       dispatch(fetchFollowers());
@@ -66,7 +66,7 @@ const Followings = () => {
                 <div key={f._id} className="flex items-center justify-between p-4 bg-white rounded shadow">
                   <div className="flex items-center gap-4">
                     <img
-                      src={f.image ? `http://localhost:3002/uploads/${f.image}` : "/default-avatar.png"}
+                      src={f.image ? `${baseUrl}/uploads/${f.image}` : "/default-avatar.png"}
                       alt={f.name}
                       className="w-32 h-32 rounded-full object-cover"
                     />
@@ -98,7 +98,7 @@ const Followings = () => {
                 <div key={f._id} className="flex items-center justify-between p-4 bg-white rounded shadow">
                   <div className="flex items-center gap-4">
                     <img
-                      src={f.image ? `http://localhost:3002/uploads/${f.image}` : "/default-avatar.png"}
+                      src={f.image ? `${baseUrl}/uploads/${f.image}` : "/default-avatar.png"}
                       alt={f.name}
                       className="w-32 h-32 rounded-full object-cover"
                     />

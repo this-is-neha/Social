@@ -1,6 +1,9 @@
+
+
+
 import { createContext, useState, useEffect, ReactNode } from "react";
 import axios from "axios";
-
+const baseUrl=import.meta.env.VITE_API_BASE_URL 
 interface UserContextType {
   user: any | null;
   setUser: React.Dispatch<React.SetStateAction<any | null>>;
@@ -28,7 +31,7 @@ export function UserProvider({ children }: UserProviderProps) {
     async function fetchUser() {
       try {
         const token = localStorage.getItem("accessToken");
-          const responsee = await axios.get("http://localhost:3002/auth/me", {
+          const responsee = await axios.get(`${baseUrl}/auth/me`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -37,7 +40,7 @@ export function UserProvider({ children }: UserProviderProps) {
         const userId = responsee.data.result._id;
         console.log("Logged-in user ID:", userId);
         setLoading(true);
-        const response = await axios.get(`http://localhost:3002/auth/following/${userId}`);
+        const response = await axios.get(`${baseUrl}/auth/following/${userId}`);
         const data = await response.data
         setUser(data);
       } catch (error) {

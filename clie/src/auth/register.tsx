@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const baseUrl= import.meta.env.VITE_API_BASE_URL
 const Register = () => {
   const [user, setUser] = useState({
     name: '',
@@ -21,35 +22,7 @@ const navigate= useNavigate()
       console.log("Uploaded filessss:", file);
     }
   }
-  // const handleSubmit = async (e:any) => {
-  //   e.preventDefault();
-
-  //   if (user.password !== user.confirmPassword) {
-  //     alert("Passwords do not match!");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await axios.post('http://localhost:3002/auth/register', {
-  //       name: user.name,
-  //       email: user.email,
-  //       image: user.image,
-  //       password: user.password,
-  //        headers: {
-  //   "Content-Type": "multipart/form-data",
-  // },
-      
-  //     });
-
-  //     console.log('Registration successful:', response.data);
-  //     navigate('/activate')
-     
-  //   } catch (error:any) {
-  //     console.error('Registration error:', error.response?.data || error.message);
-  //     alert("Registration failed");
-  //   }
-  // };
-
+ 
   const handleSubmit = async (e: any) => {
   e.preventDefault();
 
@@ -67,7 +40,7 @@ const navigate= useNavigate()
       formData.append("image", user.image);
     }
 
-    const response = await axios.post("http://localhost:3002/auth/register", formData, {
+    const response = await axios.post(`${baseUrl}/auth/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
