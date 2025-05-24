@@ -10,8 +10,7 @@ const mainRoute = require("./routing.config");
 const app = express();
 
 app.use(cors({
-    origin:  'http://localhost:5173', // Replace with your frontend URL,
-   
+    origin: ['http://localhost:5173', 'https://instamediaa.netlify.app/'], // Replace with your frontend URLs
     allowedHeaders: 'Content-Type, Authorization', 
 }));
 
