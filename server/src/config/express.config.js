@@ -10,8 +10,8 @@ const mainRoute = require("./routing.config");
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://instamediaa.netlify.app/'],
-    credentials: true, // Replace with your frontend URLs
+    origin: ['http://localhost:5173', 'https://instamediaa.netlify.app'],
+    credentials: true, 
     allowedHeaders: 'Content-Type, Authorization', 
 }));
 
@@ -31,7 +31,6 @@ app.use('/uploads', express.static('uploads',{
   }
 }));
 
-// ✅ Your routes come AFTER static files
 app.use(mainRoute);
 
 app.get('/', (req, res) => {
