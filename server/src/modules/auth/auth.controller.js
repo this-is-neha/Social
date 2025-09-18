@@ -10,6 +10,7 @@ class AuthController {
     register = async (req, res, next) => {
         try {
             console.log("Incomming request to register user", req.body);
+            console.log("File data", req.file);
             const file = req.file;
             console.log("Uploaded file:", file);
 
