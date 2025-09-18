@@ -10,7 +10,8 @@ const mainRoute = require("./routing.config");
 const app = express();
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'https://instamediaa.netlify.app/'], // Replace with your frontend URLs
+    origin: ['http://localhost:5173', 'https://instamediaa.netlify.app/'],
+    credentials: true, // Replace with your frontend URLs
     allowedHeaders: 'Content-Type, Authorization', 
 }));
 
@@ -21,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Complaint Register backend is live 🚀",
+    message: "Social backend is live 🚀",
   });
 });
 app.use('/uploads', express.static('uploads',{
