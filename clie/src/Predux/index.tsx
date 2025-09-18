@@ -6,13 +6,13 @@ import { RootState, AppDispatch } from "../redux/store";
 import Header from "../common/header";
 import Footer from "../common/footer";
 import axios from "axios";
-const baseUrl= import.meta.env.VITE_API_BASE_URL
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 const Followings = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { followers } = useSelector((state: RootState) => state.follower);
   const { following, loading } = useSelector((state: RootState) => state.user);
   const [loggedIn, setLoggedIn] = useState<string | null>(null);
-
   useEffect(() => {
     dispatch(fetchFollowers());
     dispatch(fetchUserFollowing());
@@ -42,8 +42,7 @@ const Followings = () => {
   const handleToggleFollow = async (followuserId: string) => {
     try {
       const response = await axios.put(
-        `${baseUrl}/auth/follow/${followuserId}/${loggedIn}`
-      );
+        `${baseUrl}/auth/follow/${followuserId}/${loggedIn}`);
       console.log("Follow response:", response.data);
       dispatch(fetchFollowers());
       dispatch(fetchUserFollowing());

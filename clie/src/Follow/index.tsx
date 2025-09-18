@@ -1,5 +1,3 @@
-
-
 import { useContext, useEffect, useState } from "react";
 import Header from "../common/header";
 import Footer from "../common/footer";
@@ -20,7 +18,6 @@ const Follow = () => {
     const fetchLoggedInId = async () => {
       const token = localStorage.getItem("accessToken");
       if (!token) return;
-
       try {
         const res = await axios.get(`${baseUrl}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -30,7 +27,6 @@ const Follow = () => {
         console.error("Failed to fetch logged-in user ID", err);
       }
     };
-
     fetchLoggedInId();
   }, []);
 
